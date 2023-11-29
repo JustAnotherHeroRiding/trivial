@@ -7,6 +7,7 @@ export default async function SignUpServer() {
     email: string,
     password: string,
   ) => {
+    "use server";
     try {
       const result = await api.user.signUp.mutate({ name, email, password });
       // Handle result

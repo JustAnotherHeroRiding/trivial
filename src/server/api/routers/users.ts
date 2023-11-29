@@ -17,6 +17,7 @@ const signUpSchema = z.object({
 export type getUsersParams = z.infer<typeof signUpSchema>;
 
 export const usersRouter = createTRPCRouter({
+  // Here we will also have to create a new account, not just a user
   signUp: publicProcedure.input(signUpSchema).mutation(async ({ input }) => {
     const existingUser = await db.user.findUnique({
       where: { email: input.email },
@@ -33,7 +34,13 @@ export const usersRouter = createTRPCRouter({
       data: input,
     });
 
-    return { message: "User created", user: user };
+    //const account = await db.account.create({ data: input });
+
+    return {
+      message: "User created",
+      user: user,
+      // account: account
+    };
   }),
   getUsers: publicProcedure.query(async () => {
     const users = db.user.findMany();
