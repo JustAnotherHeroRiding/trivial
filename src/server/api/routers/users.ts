@@ -11,19 +11,29 @@ const signUpSchema = z.object({
   name: z.string().optional(),
   email: z.string().email(),
   image: z.string().optional(),
-  password: z.string(),
+  password: z.string().min(8),
 });
 
 export type getUsersParams = z.infer<typeof signUpSchema>;
 
 export const usersRouter = createTRPCRouter({
-  signUp: publicProcedure.input(signUpSchema).query(async ({ input }) => {
-    if (await db.user.findUnique({ where: { email: input.email } })) {
-      return "Email already in use";
+  signUp: publicProcedure.input(signUpSchema).mutation(async ({ input }) => {
+    const existingUser = await db.user.findUnique({
+      where: { email: input.email },
+    });
+
+    if (existingUser) {
+      throw new Error("Email already in use");
     }
 
-    await db.user.create({ data: input });
-    return "User created";
+    // Hash the password before saving to the database (use a library like bcrypt)
+    //const hashedPassword = /* hash the password */;
+
+    const user = await db.user.create({
+      data: input,
+    });
+
+    return { message: "User created", user: user };
   }),
   getUsers: publicProcedure.query(async () => {
     const users = db.user.findMany();

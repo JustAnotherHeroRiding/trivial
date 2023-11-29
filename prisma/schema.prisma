@@ -74,7 +74,7 @@ model User {
     name          String?
     email         String?   @unique
     emailVerified DateTime?
-    image         String?
+    image String? @default("default-profile-picture.png")
     password      String?
     accounts      Account[]
     sessions      Session[]
