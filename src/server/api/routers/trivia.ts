@@ -6,10 +6,10 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { type QuestionSingle } from "~/app/_components/questionCard";
+import { type QuestionSingle } from "~/app/_components/questionRelated/questionCard";
 
 const url = "https://the-trivia-api.com/v2/questions";
-const getQuestionsSchema = z.object({
+export const getQuestionsSchema = z.object({
   limit: z.number(),
   categories: z.string().optional(),
   difficulty: z.string().optional(),

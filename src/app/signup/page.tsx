@@ -1,5 +1,5 @@
 import { api } from "~/trpc/server";
-import SignUp from "../_components/SignUp";
+import SignUp from "../_components/authRelated/SignUp";
 
 export default async function SignUpServer() {
   const handleSignUp = async (

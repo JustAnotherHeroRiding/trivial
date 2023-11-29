@@ -1,7 +1,7 @@
 import { api } from "~/trpc/server";
 import { NavBar } from "../_components/navbar";
-import { QuestionCard } from "../_components/questionCard";
-import { LoadingSpinner } from "../_components/LoadingSpinner";
+import { QuestionCard } from "../_components/questionRelated/questionCard";
+import { LoadingSpinner } from "../_components/utilities/LoadingSpinner";
 import { getServerAuthSession } from "~/server/auth";
 
 export default async function Game({

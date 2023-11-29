@@ -1,7 +1,7 @@
 "use client";
 
 import { type ClassValue } from "clsx";
-import { cn } from "./@/lib/utils";
+import { cn } from "../@/lib/utils";
 
 interface SpinnerProps {
   className?: ClassValue;

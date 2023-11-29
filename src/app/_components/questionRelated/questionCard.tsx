@@ -1,4 +1,4 @@
-import { Card } from "./@/components/ui/card";
+import { Card } from "../@/components/ui/card";
 import { Answer } from "./Answer";
 
 export interface QuestionSingle {

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "../_components/@/components/ui/button";
+import { Button } from "../@/components/ui/button";
 
 interface SignUpProps {
   signUserUp: (name: string, email: string, password: string) => Promise<void>;
@@ -14,6 +14,8 @@ export default function SignUp({ signUserUp }: SignUpProps) {
   return (
     <main className="relative flex min-h-screen flex-col items-center bg-gradient-to-t from-blue-100 via-blue-300 to-blue-500 font-sans">
       <div className="container flex flex-grow flex-col items-center justify-center gap-12 px-4 py-16 ">
+        <h1 className="text-4xl font-black text-red-600"> WORK IN PROGRESS</h1>
+        <h1 className="text-4xl font-black text-red-600"> EMAIL ACCOUNTS DO NOT WORK</h1>
         <label htmlFor="name">Name:</label>
         <input
           type="text"
