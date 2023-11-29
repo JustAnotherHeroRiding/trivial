@@ -14,19 +14,22 @@ import {
   FormProvider,
   useFormContext,
   type UseFormReturn,
-  type FieldValues
+  type FieldValues,
 } from "react-hook-form";
-import type * as z from "zod";
-import { type getQuestionsSchema } from "~/server/api/routers/trivia";
+import type { getQuestionsParams } from "~/server/api/routers/trivia";
 
 interface TriviaSettingsFormProps {
-  formSubmit: (formData: z.infer<typeof getQuestionsSchema>) => Promise<void>;
+  formSubmit: (formData: getQuestionsParams) => Promise<void>;
   form: UseFormReturn<FieldValues, undefined>;
 }
 export function TriviaSettingsForm({ formSubmit }: TriviaSettingsFormProps) {
-  const { register, handleSubmit, formState: { errors } } = useFormContext();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useFormContext();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: getQuestionsParams) => {
     await formSubmit(data);
   };
 
@@ -39,7 +42,7 @@ export function TriviaSettingsForm({ formSubmit }: TriviaSettingsFormProps) {
           <FormItem>
             <FormLabel>Limit</FormLabel>
             <FormControl>
-              <input {...field} type="number" placeholder="Enter limit" />
+              <Input {...field} type="number" placeholder="Enter limit" />
             </FormControl>
             <FormMessage>{errors.limit?.message}</FormMessage>
           </FormItem>
@@ -57,6 +60,9 @@ export function TriviaSettingsForm({ formSubmit }: TriviaSettingsFormProps) {
             <FormControl>
               <input {...field} type="text" placeholder="Enter categories" />
             </FormControl>
+            <FormDescription className="mt-2">
+              Separate categories with commas.
+            </FormDescription>
             <FormMessage>{errors.categories?.message}</FormMessage>
           </FormItem>
         )}

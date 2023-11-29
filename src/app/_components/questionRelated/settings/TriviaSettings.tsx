@@ -1,22 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type * as z from "zod";
+//import type * as z from "zod";
 
-import { getQuestionsSchema } from "~/server/api/routers/trivia";
+import {
+  type getQuestionsParams,
+  getQuestionsSchema,
+} from "~/server/api/routers/trivia";
 import { TriviaSettingsForm } from "./TriviaSettingsForm";
 import { api } from "~/trpc/server";
 
 export function ProfileForm() {
-
   const form = useForm({
     resolver: zodResolver(getQuestionsSchema),
   });
-  
-  const formSubmit = async ({
-    formData,
-  }: {
-    formData: z.infer<typeof getQuestionsSchema>;
-  }) => {
+
+  const formSubmit = async (formData: getQuestionsParams) => {
     "use server";
     try {
       const result = await api.trivia.getQuestions.query(formData);

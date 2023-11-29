@@ -21,6 +21,19 @@ export const getQuestionsSchema = z.object({
   language: z.string().optional(),
 });
 
+
+interface GetQuestionsParams {
+  limit: number;
+  categories?: string;
+  difficulty?: string;
+  region?: string;
+  tags?: string;
+  types?: string;
+  session?: string;
+  preview?: string;
+  language?: string;
+}
+
 export type getQuestionsParams = z.infer<typeof getQuestionsSchema>;
 
 
