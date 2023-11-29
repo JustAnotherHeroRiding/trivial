@@ -6,9 +6,11 @@ import {
 } from "next-auth";
 //import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 //import { env } from "~/env";
 import { db } from "~/server/db";
+import { type User } from "@prisma/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -58,6 +60,31 @@ export const authOptions: NextAuthOptions = {
     GitHubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
+    }),
+    CredentialsProvider({
+      name: "Email",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "example@example.com",
+        },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials): Promise<User | null> {
+        if (!credentials?.email || !credentials.password) {
+          return null;
+        }
+        const dbUser = await db.user.findFirst({
+          where: { email: credentials.email },
+        });
+        if (dbUser && dbUser.password === credentials.password) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { password, id, ...dbUserWithoutPassword } = dbUser;
+          return dbUserWithoutPassword as User;
+        }
+        return null;
+      },
     }),
     /**
      * ...add more providers here.
