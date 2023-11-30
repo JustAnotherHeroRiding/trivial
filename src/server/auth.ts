@@ -6,11 +6,9 @@ import {
 } from "next-auth";
 //import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
-import CredentialsProvider from "next-auth/providers/credentials";
 
 //import { env } from "~/env";
 import { db } from "~/server/db";
-import { type User } from "@prisma/client";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -61,7 +59,7 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
-    CredentialsProvider({
+    /* CredentialsProvider({
       name: "Email",
       credentials: {
         email: {
@@ -85,7 +83,7 @@ export const authOptions: NextAuthOptions = {
         }
         return null;
       },
-    }),
+    }), */
     /**
      * ...add more providers here.
      *

@@ -4,6 +4,7 @@ import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 import { NavBar } from "./_components/navbar";
+import { TriviaSettingsForm } from "./_components/questionRelated/settings/TriviaSettingsForm";
 
 export default async function Home() {
   const session = await getServerAuthSession();
@@ -15,6 +16,7 @@ export default async function Home() {
         <Link className="punchy-btn" href={"/game"}>
           Quick Play
         </Link>
+        <TriviaSettingsForm />
 
         <div className="flex flex-col items-center justify-center gap-4">
           <p className="text-center text-2xl text-white">
@@ -22,7 +24,6 @@ export default async function Home() {
           </p>
         </div>
       </div>
-
       <CrudShowcase />
     </main>
   );

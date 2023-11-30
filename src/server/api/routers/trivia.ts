@@ -22,7 +22,7 @@ export const getQuestionsSchema = z.object({
 });
 
 
-interface GetQuestionsParams {
+export interface GetQuestionsParams {
   limit: number;
   categories?: string;
   difficulty?: string;
