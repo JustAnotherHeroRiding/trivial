@@ -13,7 +13,7 @@ const inter = Inter({
 export const metadata = {
   title: "Trivial",
   description: "How much do you really know?",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/logo.png" }],
 };
 
 export default function RootLayout({

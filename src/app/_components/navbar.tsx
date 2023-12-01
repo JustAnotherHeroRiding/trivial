@@ -4,6 +4,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import { Button, buttonVariants } from "./@/components/ui/button";
 import { type Session } from "node_modules/next-auth/core/types";
+import Image from "next/image";
 
 export function NavBar({ session }: { session: Session | null }) {
   return (
@@ -30,11 +31,21 @@ export function NavBar({ session }: { session: Session | null }) {
         href={"/"}
         className={`${buttonVariants({
           variant: "link",
-        })}flex-1 text-center `}
+        })}flex-1 gap-2 text-center `}
       >
-        <span className="rounded-lg border bg-trivia-100 p-2 font-sans text-2xl font-black  text-trivia-400">
+        <Image
+          src={"/logo.png"}
+          alt="trivial logo"
+          width={20}
+          height={20}
+          className="h-auto w-10 rounded-3xl hover:opacity-80"
+        />
+        <Button
+          className="rounded-lg border bg-trivia-100 p-2 font-sans 
+        text-2xl font-black text-trivia-400 hover:text-trivia-300  hover:opacity-80"
+        >
           Trivial
-        </span>
+        </Button>
       </Link>
       <div className="flex flex-1 items-center justify-end gap-2">
         <Button variant={"outline"}>How to play</Button>
