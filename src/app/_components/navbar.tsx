@@ -39,6 +39,7 @@ export function NavBar({ session }: { session: Session | null }) {
           width={20}
           height={20}
           className="h-auto w-10 rounded-3xl hover:opacity-80"
+          priority={true}
         />
         <Button
           className="rounded-lg border bg-trivia-100 p-2 font-sans 
