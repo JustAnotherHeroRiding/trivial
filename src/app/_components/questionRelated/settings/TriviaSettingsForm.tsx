@@ -133,7 +133,6 @@ export function TriviaSettingsForm() {
     },
   });
   return (
-    // We can set a component for each field
     <Card className="p-4">
       <CardTitle className="mb-4 text-2xl font-bold">Trivia Settings</CardTitle>
       <Form {...form}>
