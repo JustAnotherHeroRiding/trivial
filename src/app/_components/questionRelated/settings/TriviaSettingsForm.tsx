@@ -24,6 +24,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../@/components/ui/select";
+import {
+  type FieldConfig,
+  fieldConfigs,
+  defaultQuestionParamValues,
+} from "~/utils/form-utils";
 
 const getQuestionsSchema = z.object({
   limit: z.number(),
@@ -37,101 +42,16 @@ const getQuestionsSchema = z.object({
   language: z.string().optional(),
 });
 
-type FieldConfig = {
-  name: keyof getQuestionsParams;
-  label: string;
-  placeholder: string;
-  type: "text" | "number" | "select";
-  options?: string[]; // for select fields
-  description?: string;
-};
-
-const fieldConfigs: FieldConfig[] = [
-  {
-    name: "limit",
-    label: "Limit",
-    placeholder: "Enter limit",
-    type: "number",
-    description: "The maximum number of questions.",
-  },
-  {
-    name: "categories",
-    label: "Categories",
-    placeholder: "Enter categories",
-    type: "text",
-    description: "Separate categories with commas.",
-  },
-  {
-    name: "difficulty",
-    label: "Difficulty",
-    placeholder: "Enter Difficulty",
-    type: "select",
-    options: ["Easy", "Medium", "Hard"],
-    description: "Easy, Medium or Hard",
-  },
-  {
-    name: "region",
-    label: "Region",
-    placeholder: "Enter region",
-    type: "text",
-    description: "Specify the region for the questions.",
-  },
-  {
-    name: "tags",
-    label: "Tags",
-    placeholder: "Enter tags",
-    type: "text",
-    description: "Separate tags with commas.",
-  },
-  {
-    name: "types",
-    label: "Types",
-    placeholder: "Enter types",
-    type: "text",
-    description: "Specify the types of questions.",
-  },
-  {
-    name: "session",
-    label: "Session",
-    placeholder: "Enter session",
-    type: "text",
-    description: "Session identifier for the question set.",
-  },
-  {
-    name: "preview",
-    label: "Preview",
-    placeholder: "Enter preview",
-    type: "text",
-    description: "Specify if a preview is needed.",
-  },
-  {
-    name: "language",
-    label: "Language",
-    placeholder: "Enter language",
-    type: "text",
-    description: "Specify the language for the questions.",
-  },
-];
-// ... Add other field configurations as per your schema
-
 export function TriviaSettingsForm() {
   const onSubmit = async (data: FieldValues) => {
+    console.log("Submitting")
     await triviaSettingsFormSubmit(data as getQuestionsParams);
   };
   const form = useForm({
     resolver: zodResolver(getQuestionsSchema),
-    defaultValues: {
-      limit: "",
-      categories: "",
-      difficulty: "",
-      region: "",
-      tags: "",
-      types: "",
-      session: "",
-      preview: "",
-      language: "",
-    },
+    defaultValues: defaultQuestionParamValues,
   });
+
   return (
     <Card className="p-4">
       <CardTitle className="mb-4 text-2xl font-bold">Trivia Settings</CardTitle>
@@ -155,29 +75,22 @@ type DynamicFormFieldProps = {
 export const DynamicFormField = ({ config }: DynamicFormFieldProps) => {
   const form = useForm({
     resolver: zodResolver(getQuestionsSchema),
-    defaultValues: {
-      limit: "",
-      categories: "",
-      difficulty: "",
-      region: "",
-      tags: "",
-      types: "",
-      session: "",
-      preview: "",
-      language: "",
-    },
+    defaultValues: defaultQuestionParamValues,
   });
 
   return (
     <FormField
       control={form.control}
-      name={config.name}
+      name={`defaultValues.${config.name}`}
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel>{config.label}</FormLabel>
           <FormControl>
             {config.type === "select" ? (
-              <Select onValueChange={field.onChange} {...field}>
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value as string}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder={config.placeholder} />
                 </SelectTrigger>
