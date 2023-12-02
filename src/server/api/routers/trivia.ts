@@ -10,7 +10,7 @@ import { type QuestionSingle } from "~/app/_components/questionRelated/questionC
 
 const url = "https://the-trivia-api.com/v2/questions";
 export const getQuestionsSchema = z.object({
-  limit: z.number(),
+  limit: z.number().optional(),
   categories: z.string().optional(),
   difficulty: z.string().optional(),
   region: z.string().optional(),

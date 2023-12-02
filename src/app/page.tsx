@@ -1,8 +1,7 @@
 import Link from "next/link";
 
-import { CreatePost } from "~/app/_components/create-post";
 import { getServerAuthSession } from "~/server/auth";
-import { api } from "~/trpc/server";
+//import { api } from "~/trpc/server";
 import { NavBar } from "./_components/navbar";
 import { TriviaSettingsForm } from "./_components/questionRelated/settings/TriviaSettingsForm";
 import { Suspense } from "react";
@@ -27,13 +26,12 @@ export default async function Home() {
             </p>
           </div>
         </div>
-        <CrudShowcase />
       </main>
     </Suspense>
   );
 }
 
-async function CrudShowcase() {
+/* async function CrudShowcase() {
   const session = await getServerAuthSession();
   if (!session?.user) return null;
 
@@ -51,3 +49,4 @@ async function CrudShowcase() {
     </div>
   );
 }
+ */

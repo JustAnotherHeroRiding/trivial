@@ -5,8 +5,9 @@ import { api } from "~/trpc/server";
 export const triviaSettingsFormSubmit = async (formData: getQuestionsParams) => {
     try {
       const result = await api.trivia.getQuestions.query(formData);
+      //console.log("Questions fetched", result);
+      return result;
       // Handle result
-      console.log("Questions fetched", result);
     } catch (error) {
       // Handle error
       console.error("Fetch Failed", error);
