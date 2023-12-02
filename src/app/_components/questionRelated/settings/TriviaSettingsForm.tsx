@@ -29,6 +29,7 @@ import {
   fieldConfigs,
   defaultQuestionParamValues,
 } from "~/utils/form-utils";
+import { cn } from "../../@/lib/utils";
 
 const getQuestionsSchema = z.object({
   limit: z.number(),
@@ -44,7 +45,7 @@ const getQuestionsSchema = z.object({
 
 export function TriviaSettingsForm() {
   const onSubmit = async (data: FieldValues) => {
-    console.log("Submitting")
+    console.log("Submitting");
     await triviaSettingsFormSubmit(data as getQuestionsParams);
   };
   const form = useForm({
@@ -56,12 +57,20 @@ export function TriviaSettingsForm() {
     <Card className="p-4">
       <CardTitle className="mb-4 text-2xl font-bold">Trivia Settings</CardTitle>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          {fieldConfigs.map((config) => (
-            <DynamicFormField key={config.name} config={config} />
-          ))}
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <div className="grid grid-flow-dense items-center justify-center gap-4 space-y-8 sm:grid-cols-2 md:grid-cols-3">
+            {fieldConfigs.map((config, index) => (
+              <DynamicFormField
+                key={config.name}
+                config={config}
+                className={index === 0 ? "mt-8" : ""}
+              />
+            ))}
+          </div>
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="ml-auto">
+            Submit
+          </Button>
         </form>
       </Form>
     </Card>
@@ -70,9 +79,13 @@ export function TriviaSettingsForm() {
 
 type DynamicFormFieldProps = {
   config: FieldConfig;
+  className: string | undefined;
 };
 
-export const DynamicFormField = ({ config }: DynamicFormFieldProps) => {
+export const DynamicFormField = ({
+  config,
+  className,
+}: DynamicFormFieldProps) => {
   const form = useForm({
     resolver: zodResolver(getQuestionsSchema),
     defaultValues: defaultQuestionParamValues,
@@ -83,7 +96,7 @@ export const DynamicFormField = ({ config }: DynamicFormFieldProps) => {
       control={form.control}
       name={`defaultValues.${config.name}`}
       render={({ field }) => (
-        <FormItem className="flex flex-col">
+        <FormItem className={cn("flex flex-col", className)}>
           <FormLabel>{config.label}</FormLabel>
           <FormControl>
             {config.type === "select" ? (

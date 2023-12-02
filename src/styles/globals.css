@@ -6,7 +6,7 @@
   @apply border-radio-300 text-radio-300 shadow-radio-300 inline-block
        cursor-pointer rounded-[30px] border-2 bg-[#fbeee0] px-4 text-center text-lg font-semibold
        leading-[50px] shadow-md hover:bg-[#fff]
-       active:translate-x-1 active:translate-y-1 active:shadow-sm;
+       active:translate-x-1 active:translate-y-1 active:shadow-sm z-[1];
 }
 
 @layer base {
