@@ -12,14 +12,7 @@ export default async function Home() {
   const session = await getServerAuthSession();
 
   return (
-    <Suspense
-    
-      fallback={
-        <>
-          <LoadingSuspense />
-        </>
-      }
-    >
+    <Suspense fallback={<LoadingSuspense />}>
       <main className="relative flex min-h-screen flex-col items-center bg-gradient-to-t from-blue-100 via-blue-300 to-blue-500 font-sans">
         <NavBar session={session} />
         <div className="container flex flex-grow flex-col items-center justify-center gap-12 px-4 py-16 ">
